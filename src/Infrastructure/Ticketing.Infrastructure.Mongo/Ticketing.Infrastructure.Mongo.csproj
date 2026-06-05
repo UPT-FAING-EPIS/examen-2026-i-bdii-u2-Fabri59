@@ -8,6 +8,8 @@
     <ProjectReference Include="..\..\Core\Ticketing.Application\Ticketing.Application.csproj" />
     <ProjectReference Include="..\..\Core\Ticketing.Domain\Ticketing.Domain.csproj" />
     <ProjectReference Include="..\..\Libraries\Ticketing.EntityMapper\Ticketing.EntityMapper.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.29.0" />
   </ItemGroup>
 </Project>

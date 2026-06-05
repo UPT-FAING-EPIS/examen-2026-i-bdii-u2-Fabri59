@@ -97,6 +97,15 @@ h1 {
 
 .card {
   padding: 20px;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(34, 197, 94, 0.5);
+  outline: none;
 }
 
 .card span,
@@ -113,4 +122,79 @@ h1 {
   align-items: end;
   justify-content: space-between;
   margin-top: 20px;
+}
+
+.empty-state {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px dashed var(--panel-border);
+  border-radius: 20px;
+  color: var(--muted);
+  background: rgba(15, 23, 42, 0.4);
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.72);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  z-index: 40;
+}
+
+.modal {
+  width: min(640px, 100%);
+  border: 1px solid var(--panel-border);
+  border-radius: 24px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 24px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: start;
+}
+
+.modal-header h2 {
+  margin: 10px 0 0;
+}
+
+.modal-header span {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+}
+
+.modal-close {
+  border: 1px solid var(--panel-border);
+  background: transparent;
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 14px;
+}
+
+.modal-content {
+  margin-top: 20px;
+  color: var(--muted);
+}
+
+.modal-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  display: grid;
+  gap: 10px;
+}
+
+.modal-content li {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(148, 163, 184, 0.12);
 }

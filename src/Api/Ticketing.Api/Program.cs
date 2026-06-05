@@ -58,7 +58,7 @@ app.MapGet("/events/{id:guid}", async (Guid id, EventCatalogService catalogServi
         eventEntity.BasePrice,
         eventEntity.Capacity,
         eventEntity.Capacity,
-        eventEntity.Tags));
+        eventEntity.Tags.ToList()));
 });
 
 app.MapPost("/events", async (CreateEventRequest request, IEventRepository repository, CancellationToken cancellationToken) =>

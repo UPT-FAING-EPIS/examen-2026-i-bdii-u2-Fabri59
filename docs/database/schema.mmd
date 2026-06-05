@@ -1,0 +1,21 @@
+erDiagram
+  EVENTS {
+    string Id
+    string Slug
+    string Title
+    string Category
+    string City
+  }
+  TICKETS {
+    string Id
+    string EventId
+    string UserId
+    string SeatLabel
+  }
+  USERS {
+    string Id
+    string Email
+    string Role
+  }
+  EVENTS ||--o{ TICKETS : has
+  USERS ||--o{ TICKETS : buys

@@ -1,0 +1,57 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.Domain", "src/Core/Ticketing.Domain/Ticketing.Domain.csproj", "{A1C0A7C2-6E69-4D52-9B0A-3E2D4F0D1F01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.Application", "src/Core/Ticketing.Application/Ticketing.Application.csproj", "{D5D4C7D5-0B93-4B76-A2E1-7C8BDB3E5C02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.EntityMapper", "src/Libraries/Ticketing.EntityMapper/Ticketing.EntityMapper.csproj", "{6B2A6A19-2C90-4D70-A6C0-2C8F0D9A0C03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.Infrastructure.Mongo", "src/Infrastructure/Ticketing.Infrastructure.Mongo/Ticketing.Infrastructure.Mongo.csproj", "{F3E4A06E-8B18-4A3D-9C72-5A8C6A3F0D04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.Api", "src/Api/Ticketing.Api/Ticketing.Api.csproj", "{A0BE0E10-3B7B-45C0-BD3B-0F6F5F7E0D05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.Seeder", "tools/Ticketing.Seeder/Ticketing.Seeder.csproj", "{B7F5E8D4-6A75-4DAA-BD41-1E6B9B1F0D06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.Api.Tests", "tests/Ticketing.Api.Tests/Ticketing.Api.Tests.csproj", "{C8B6C4E9-58D8-4B8E-8A69-5C7A8F7F0D07}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1C0A7C2-6E69-4D52-9B0A-3E2D4F0D1F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1C0A7C2-6E69-4D52-9B0A-3E2D4F0D1F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1C0A7C2-6E69-4D52-9B0A-3E2D4F0D1F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1C0A7C2-6E69-4D52-9B0A-3E2D4F0D1F01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5D4C7D5-0B93-4B76-A2E1-7C8BDB3E5C02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5D4C7D5-0B93-4B76-A2E1-7C8BDB3E5C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5D4C7D5-0B93-4B76-A2E1-7C8BDB3E5C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5D4C7D5-0B93-4B76-A2E1-7C8BDB3E5C02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B2A6A19-2C90-4D70-A6C0-2C8F0D9A0C03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B2A6A19-2C90-4D70-A6C0-2C8F0D9A0C03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B2A6A19-2C90-4D70-A6C0-2C8F0D9A0C03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B2A6A19-2C90-4D70-A6C0-2C8F0D9A0C03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3E4A06E-8B18-4A3D-9C72-5A8C6A3F0D04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3E4A06E-8B18-4A3D-9C72-5A8C6A3F0D04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3E4A06E-8B18-4A3D-9C72-5A8C6A3F0D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3E4A06E-8B18-4A3D-9C72-5A8C6A3F0D04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0BE0E10-3B7B-45C0-BD3B-0F6F5F7E0D05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0BE0E10-3B7B-45C0-BD3B-0F6F5F7E0D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0BE0E10-3B7B-45C0-BD3B-0F6F5F7E0D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0BE0E10-3B7B-45C0-BD3B-0F6F5F7E0D05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7F5E8D4-6A75-4DAA-BD41-1E6B9B1F0D06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7F5E8D4-6A75-4DAA-BD41-1E6B9B1F0D06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7F5E8D4-6A75-4DAA-BD41-1E6B9B1F0D06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7F5E8D4-6A75-4DAA-BD41-1E6B9B1F0D06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8B6C4E9-58D8-4B8E-8A69-5C7A8F7F0D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8B6C4E9-58D8-4B8E-8A69-5C7A8F7F0D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8B6C4E9-58D8-4B8E-8A69-5C7A8F7F0D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8B6C4E9-58D8-4B8E-8A69-5C7A8F7F0D07}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

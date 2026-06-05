@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Ticketing.Application\Ticketing.Application.csproj" />
+    <ProjectReference Include="..\..\Core\Ticketing.Domain\Ticketing.Domain.csproj" />
+    <ProjectReference Include="..\..\Libraries\Ticketing.EntityMapper\Ticketing.EntityMapper.csproj" />
+    <PackageReference Include="MongoDB.Driver" Version="2.29.0" />
+  </ItemGroup>
+</Project>

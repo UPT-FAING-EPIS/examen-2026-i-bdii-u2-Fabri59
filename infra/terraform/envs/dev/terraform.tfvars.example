@@ -1,0 +1,4 @@
+project_name         = "tickethub"
+location             = "East US"
+resource_group_name  = "rg-tickethub-dev"
+mongo_connection_string = ""

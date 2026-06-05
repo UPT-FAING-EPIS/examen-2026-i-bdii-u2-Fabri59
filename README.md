@@ -41,6 +41,8 @@ Variables opcionales del repositorio para el flujo unificado:
 - `AZURE_LOCATION`: ubicación de Azure, por ejemplo `eastus`.
 - `AZURE_APP_SERVICE_PLAN`: nombre del App Service Plan.
 
+Estado actual del proyecto: el backend, el frontend y el workflow unificado ya están cableados para CI y despliegue.
+
 ## Despliegue
 
 - El workflow [`ci-deploy`](.github/workflows/deploy.yml) valida backend y frontend en `push` y `pull_request`.

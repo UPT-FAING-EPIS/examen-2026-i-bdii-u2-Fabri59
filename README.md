@@ -31,13 +31,13 @@ Cuando tengas credenciales de Azure, puedo conectar el backend, el frontend y el
 
 GitHub Actions espera estos secretos configurados en el repositorio, sin pegar sus valores en el código:
 
-- `AZURE_WEBAPP_PUBLISH_PROFILE`: perfil de publicación para el Web App donde se despliega el frontend.
+- `AZURE_WEBAPP_PUBLISH_PROFILE`: credencial JSON de Azure usada por `azure/login`.
 - `TERRAFORM_API_TOKEN`: token para la integración con el proveedor externo que uses en Terraform.
 
 ## Despliegue
 
-- El workflow [`deploy`](.github/workflows/deploy.yml) compila el frontend y lo publica en Azure Web App usando `AZURE_WEBAPP_PUBLISH_PROFILE`.
-	El nombre del Web App se calcula desde el repositorio en el propio workflow como `<repo>-web`.
+- El workflow [`deploy`](.github/workflows/deploy.yml) inicia sesión en Azure con `AZURE_WEBAPP_PUBLISH_PROFILE` y despliega el frontend por Azure CLI.
+- El nombre del Web App se calcula desde el repositorio en el propio workflow como `<repo>-web`.
 - El workflow [`infra`](.github/workflows/infra.yml) valida Terraform antes de aplicar cambios de infraestructura.
 
 ## Repositorio

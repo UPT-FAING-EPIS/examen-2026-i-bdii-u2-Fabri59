@@ -14,8 +14,14 @@ jobs:
     runs-on: ubuntu-latest
     env:
       WEBAPP_NAME: ${{ format('{0}-web', github.event.repository.name) }}
+      AZURE_RESOURCE_GROUP: rg-tickethub-dev
     steps:
       - uses: actions/checkout@v4
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -30,9 +36,9 @@ jobs:
         working-directory: web/ticketing-web
         run: npm run build
 
+      - name: Package frontend
+        working-directory: web/ticketing-web/dist
+        run: zip -r ../frontend.zip .
+
       - name: Deploy frontend to Azure Web App
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: ${{ env.WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: web/ticketing-web/dist
+        run: az webapp deploy --resource-group "$AZURE_RESOURCE_GROUP" --name "$WEBAPP_NAME" --src-path web/ticketing-web/frontend.zip --type zip

@@ -40,7 +40,13 @@ jobs:
         run: zip -r ../frontend.zip .
 
       - name: Resolve resource group
-        run: echo "AZURE_RESOURCE_GROUP=$(az webapp show --name \"$WEBAPP_NAME\" --query resourceGroup -o tsv)" >> "$GITHUB_ENV"
+        run: |
+          AZURE_RESOURCE_GROUP=$(az webapp list --query "[?name=='$WEBAPP_NAME'] | [0].resourceGroup" -o tsv)
+          if [ -z "$AZURE_RESOURCE_GROUP" ]; then
+            echo "Web App '$WEBAPP_NAME' not found in the current Azure subscription."
+            exit 1
+          fi
+          echo "AZURE_RESOURCE_GROUP=$AZURE_RESOURCE_GROUP" >> "$GITHUB_ENV"
 
       - name: Deploy frontend to Azure Web App
         run: az webapp deploy --resource-group "$AZURE_RESOURCE_GROUP" --name "$WEBAPP_NAME" --src-path web/ticketing-web/frontend.zip --type zip

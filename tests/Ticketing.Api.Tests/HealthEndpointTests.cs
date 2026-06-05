@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Xunit;
 
 namespace Ticketing.Api.Tests;
 
@@ -8,6 +8,6 @@ public sealed class HealthEndpointTests
     public void HealthRouteShouldBeDefined()
     {
         var route = "/health";
-        route.Should().Be("/health");
+        Assert.Equal("/health", route);
     }
 }

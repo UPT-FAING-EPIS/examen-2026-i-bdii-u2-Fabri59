@@ -47,7 +47,7 @@ Estado actual del proyecto: el backend, el frontend y el workflow unificado ya e
 
 - El workflow [`ci-deploy`](.github/workflows/deploy.yml) valida backend y frontend en `push` y `pull_request`.
 - En `push` a `main` o con `workflow_dispatch`, el mismo workflow también inicia sesión en Azure, crea los recursos faltantes y despliega el frontend por Azure CLI.
-- Si no defines `AZURE_WEBAPP_NAME`, el nombre del Web App se calcula desde el repositorio como `<repo>-web`.
+- Si no defines `AZURE_WEBAPP_NAME`, el nombre del Web App será `examen2uandia`, que corresponde a `examen2uandia.azurewebsites.net`.
 - El workflow [`infra`](.github/workflows/infra.yml) valida Terraform antes de aplicar cambios de infraestructura.
 
 ## Repositorio

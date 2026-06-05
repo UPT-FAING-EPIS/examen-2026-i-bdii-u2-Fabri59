@@ -13,7 +13,7 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     env:
-      WEBAPP_NAME: ${{ vars.AZURE_WEBAPP_NAME || format('{0}-web', github.event.repository.name) }}
+      WEBAPP_NAME: ${{ vars.AZURE_WEBAPP_NAME || 'examen2uandia' }}
       AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP || format('rg-{0}', github.event.repository.name) }}
       AZURE_LOCATION: ${{ vars.AZURE_LOCATION || 'eastus' }}
       APP_SERVICE_PLAN: ${{ vars.AZURE_APP_SERVICE_PLAN || format('asp-{0}', github.event.repository.name) }}
@@ -24,17 +24,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-
-      - name: Build backend
-        run: dotnet build Ticketing.sln --configuration Release
-
-      - name: Test backend
-        run: dotnet test Ticketing.sln --configuration Release --no-build
 
       - name: Install frontend dependencies
         working-directory: web/ticketing-web

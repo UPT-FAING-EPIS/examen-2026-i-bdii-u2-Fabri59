@@ -34,10 +34,18 @@ GitHub Actions espera estos secretos configurados en el repositorio, sin pegar s
 - `AZURE_WEBAPP_PUBLISH_PROFILE`: credencial JSON de Azure usada por `azure/login`.
 - `TERRAFORM_API_TOKEN`: token para la integración con el proveedor externo que uses en Terraform.
 
+Variables opcionales del repositorio para el flujo unificado:
+
+- `AZURE_WEBAPP_NAME`: nombre real del Web App existente o a crear.
+- `AZURE_RESOURCE_GROUP`: resource group objetivo.
+- `AZURE_LOCATION`: ubicación de Azure, por ejemplo `eastus`.
+- `AZURE_APP_SERVICE_PLAN`: nombre del App Service Plan.
+
 ## Despliegue
 
-- El workflow [`deploy`](.github/workflows/deploy.yml) inicia sesión en Azure con `AZURE_WEBAPP_PUBLISH_PROFILE` y despliega el frontend por Azure CLI.
-- El nombre del Web App se calcula desde el repositorio en el propio workflow como `<repo>-web`.
+- El workflow [`ci-deploy`](.github/workflows/deploy.yml) valida backend y frontend en `push` y `pull_request`.
+- En `push` a `main` o con `workflow_dispatch`, el mismo workflow también inicia sesión en Azure, crea los recursos faltantes y despliega el frontend por Azure CLI.
+- Si no defines `AZURE_WEBAPP_NAME`, el nombre del Web App se calcula desde el repositorio como `<repo>-web`.
 - El workflow [`infra`](.github/workflows/infra.yml) valida Terraform antes de aplicar cambios de infraestructura.
 
 ## Repositorio

@@ -1,4 +1,4 @@
-name: deploy
+name: ci-deploy
 
 on:
   workflow_dispatch:
@@ -10,22 +10,31 @@ on:
       - '.github/workflows/deploy.yml'
 
 jobs:
-  frontend:
+  build_and_deploy:
     runs-on: ubuntu-latest
     env:
-      WEBAPP_NAME: ${{ format('{0}-web', github.event.repository.name) }}
+      WEBAPP_NAME: ${{ vars.AZURE_WEBAPP_NAME || format('{0}-web', github.event.repository.name) }}
+      AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP || format('rg-{0}', github.event.repository.name) }}
+      AZURE_LOCATION: ${{ vars.AZURE_LOCATION || 'eastus' }}
+      APP_SERVICE_PLAN: ${{ vars.AZURE_APP_SERVICE_PLAN || format('asp-{0}', github.event.repository.name) }}
     steps:
       - uses: actions/checkout@v4
-
-      - name: Azure login
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Build backend
+        run: dotnet build Ticketing.sln --configuration Release
+
+      - name: Test backend
+        run: dotnet test Ticketing.sln --configuration Release --no-build
 
       - name: Install frontend dependencies
         working-directory: web/ticketing-web
@@ -35,18 +44,38 @@ jobs:
         working-directory: web/ticketing-web
         run: npm run build
 
+      - name: Azure login
+        if: github.event_name != 'pull_request'
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+
+      - name: Ensure Azure resource group
+        if: github.event_name != 'pull_request'
+        run: |
+          if [ "$(az group exists --name \"$AZURE_RESOURCE_GROUP\")" != "true" ]; then
+            az group create --name "$AZURE_RESOURCE_GROUP" --location "$AZURE_LOCATION"
+          fi
+
+      - name: Ensure App Service plan
+        if: github.event_name != 'pull_request'
+        run: |
+          if ! az appservice plan show --resource-group "$AZURE_RESOURCE_GROUP" --name "$APP_SERVICE_PLAN" >/dev/null 2>&1; then
+            az appservice plan create --resource-group "$AZURE_RESOURCE_GROUP" --name "$APP_SERVICE_PLAN" --location "$AZURE_LOCATION" --sku B1
+          fi
+
+      - name: Ensure Web App
+        if: github.event_name != 'pull_request'
+        run: |
+          if ! az webapp show --resource-group "$AZURE_RESOURCE_GROUP" --name "$WEBAPP_NAME" >/dev/null 2>&1; then
+            az webapp create --resource-group "$AZURE_RESOURCE_GROUP" --plan "$APP_SERVICE_PLAN" --name "$WEBAPP_NAME"
+          fi
+
       - name: Package frontend
+        if: github.event_name != 'pull_request'
         working-directory: web/ticketing-web/dist
         run: zip -r ../frontend.zip .
 
-      - name: Resolve resource group
-        run: |
-          AZURE_RESOURCE_GROUP=$(az webapp list --query "[?name=='$WEBAPP_NAME'] | [0].resourceGroup" -o tsv)
-          if [ -z "$AZURE_RESOURCE_GROUP" ]; then
-            echo "Web App '$WEBAPP_NAME' not found in the current Azure subscription."
-            exit 1
-          fi
-          echo "AZURE_RESOURCE_GROUP=$AZURE_RESOURCE_GROUP" >> "$GITHUB_ENV"
-
       - name: Deploy frontend to Azure Web App
+        if: github.event_name != 'pull_request'
         run: az webapp deploy --resource-group "$AZURE_RESOURCE_GROUP" --name "$WEBAPP_NAME" --src-path web/ticketing-web/frontend.zip --type zip
